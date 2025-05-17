@@ -47,7 +47,9 @@ function App() {
   const [trackingHabits,setTrackingHabits] = useState([]);
 
   const addHabit = (habit)=>{
-    setTrackingHabits([...trackingHabits,{id:uuidv4(),value:habit}]);
+    if(habit.trim() != ""){
+      setTrackingHabits([...trackingHabits,{id:uuidv4(),value:habit}]);
+    }
   }
 
   return (
