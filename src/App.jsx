@@ -61,7 +61,7 @@ function App() {
 
 
   return (
-    <div className = "font-deca flex flex-col gap-4 items-center">
+    <div className = "font-deca flex flex-col gap-4 items-center mt-8">
       <h1 className="text-4xl text-sky-950">Habit Tracker</h1>
       <SearchBar habit={habit} setHabit={setHabit} addHabit={addHabit}/>
       {trackingHabits.map((habitComponent)=>{
