@@ -11,7 +11,7 @@ function HabitTracker({el}){
   )
 }
 
-function Habit({habitName}){
+function Habit({habitInfo, deleteHabit}){
 
   const habitDays = [
     {id:1,day:"S"},{id:2,day:"M"},{id:3,day:"T"},{id:4,day:"W"},{id:5,day:"T"},{id:6,day:"F"},{id:7,day:"S"}
@@ -19,14 +19,14 @@ function Habit({habitName}){
 
   return(
       <div className="w-full gap-2 px-12 flex justify-center items-center text-sky-950">
-        <h2 className="text-lg">{habitName}</h2>
+        <h2 className="text-lg">{habitInfo.value}</h2>
         {/* habit-tracking-checkboxes */}
       <div className="flex justify-evenly w-96">
         {habitDays.map((el)=>{
           return <HabitTracker key={el.id} el={el}/>
         })}
       </div>
-        <button className="bg-red-100 text-red-950 p-2 rounded-lg cursor-pointer">Delete</button>
+        <button onClick={()=>deleteHabit(habitInfo)} className="bg-red-100 text-red-950 p-2 rounded-lg cursor-pointer">Delete</button>
     </div>
   )
 }
@@ -49,16 +49,25 @@ function App() {
   const addHabit = (habit)=>{
     if(habit.trim() != ""){
       setTrackingHabits([...trackingHabits,{id:uuidv4(),value:habit}]);
+      {console.log(trackingHabits)}
     }
   }
+
+    const deleteHabit = (habitInfo)=>{
+      let updatedHabitsList = trackingHabits.filter((el)=>el.id!=habitInfo.id);
+      setTrackingHabits(updatedHabitsList);
+  }
+
+
 
   return (
     <div className = "font-deca flex flex-col gap-4 items-center">
       <h1 className="text-4xl text-sky-950">Habit Tracker</h1>
       <SearchBar habit={habit} setHabit={setHabit} addHabit={addHabit}/>
       {trackingHabits.map((habitComponent)=>{
-        return <Habit key={habitComponent.id} habitName = {habitComponent.value}/>
+        return <Habit key={habitComponent.id} habitInfo = {habitComponent} deleteHabit={deleteHabit}/>
       })}
+      {console.log(trackingHabits)}
     </div>
     
   )
